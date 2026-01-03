@@ -29,9 +29,10 @@ const lerpAngle = (start, end, t) => {
 };
 
 export const CharacterController = () => {
-  const WALK_SPEED = 0.8;
-  const RUN_SPEED = 1.6;
-  const ROTATION_SPEED = degToRad(0.5);
+  const WALK_SPEED = 2;
+  const RUN_SPEED = 3;
+  const ROTATION_SPEED = degToRad(2);
+  const INITIAL_ROTATION = Math.PI;
 
   const rb = useRef();
   const container = useRef();
@@ -68,6 +69,18 @@ export const CharacterController = () => {
       document.removeEventListener("touchend", onMouseUp);
     };
   }, []);
+
+  useEffect(() => {
+    rotationTarget.current = INITIAL_ROTATION;
+    characterRotationTarget.current = INITIAL_ROTATION;
+  }, []);
+
+  useFrame(() => {
+    if (rb.current) {
+      const pos = rb.current.translation();
+      console.log("Player position:", pos.x.toFixed(2), pos.y.toFixed(2), pos.z.toFixed(2));
+    }
+  });
 
   useFrame(({ camera, mouse }) => {
     if (rb.current) {
@@ -110,7 +123,8 @@ export const CharacterController = () => {
       }
 
       if (movement.x !== 0 || movement.z !== 0) {
-        characterRotationTarget.current = Math.atan2(movement.x, movement.z);
+        characterRotationTarget.current =
+          INITIAL_ROTATION + Math.atan2(movement.x, movement.z);
         vel.x =
           Math.sin(rotationTarget.current + characterRotationTarget.current) *
           speed;
@@ -142,7 +156,7 @@ export const CharacterController = () => {
     );
 
     cameraPosition.current.getWorldPosition(cameraWorldPosition.current);
-    camera.position.lerp(cameraWorldPosition.current, 0.1);
+    camera.position.lerp(cameraWorldPosition.current, 0.3);
 
     if (cameraTarget.current) {
       cameraTarget.current.getWorldPosition(cameraLookAtWorldPosition.current);
@@ -153,12 +167,12 @@ export const CharacterController = () => {
   });
 
   return (
-    <RigidBody colliders={false} lockRotations ref={rb}>
+    <RigidBody colliders={false} lockRotations ref={rb} position={[0, 1, -18]}>
       <group ref={container}>
-        <group ref={cameraTarget} position-z={1.5} />
-        <group ref={cameraPosition} position-y={2.5} position-z={-2} />
+        <group ref={cameraTarget} position-z={-2.0} />
+        <group ref={cameraPosition} position-y={1} position-z={1} />
         <group ref={character}>
-          <Character scale={0.25} position-y={0} animation={animation} />
+          <Character scale={0.4} position-y={0} animation={animation} />
         </group>
       </group>
       <CapsuleCollider args={[0.5, 0.25]} />
