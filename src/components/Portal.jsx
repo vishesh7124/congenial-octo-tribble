@@ -4,7 +4,7 @@ import { extend, useFrame } from "@react-three/fiber";
 import { shaderMaterial, useGLTF, useTexture, Sparkles } from "@react-three/drei";
 import { DissolveMaterial } from "./DissolveEffect";
 import * as THREE from "three";
-import { Model } from "./robot";
+// import { Model } from "./robot";
 // import { Model } from "./building";
 
 const vertexShader = `

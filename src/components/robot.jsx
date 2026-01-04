@@ -22,4 +22,4 @@ export function Model(props) {
   )
 }
 
-useGLTF.preload('/robot.glb')
+useGLTF.preload('models/robot.glb')
