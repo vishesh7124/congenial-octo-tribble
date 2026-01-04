@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, KeyboardControls } from "@react-three/drei";
 import * as THREE from "three";
@@ -15,35 +15,27 @@ import { Portal } from "./components/Portal";
 const RetroComputer = React.lazy(() =>
   import("./components/comp").then(m => ({ default: m.Model }))
 );
-
 const TiLogo = React.lazy(() =>
   import("./components/ti").then(m => ({ default: m.Model }))
 );
-
 const Robot = React.lazy(() =>
   import("./components/robo").then(m => ({ default: m.Model }))
 );
-
 const Academic = React.lazy(() =>
   import("./components/building").then(m => ({ default: m.Model }))
 );
-
 const Sign = React.lazy(() =>
   import("./components/sign").then(m => ({ default: m.Model }))
 );
-
 const PurplePlanet = React.lazy(() =>
   import("./components/purple_planet").then(m => ({ default: m.Model }))
 );
-
 const Saucer = React.lazy(() =>
   import("./components/flying_saucer").then(m => ({ default: m.Model }))
 );
-
 const Library = React.lazy(() =>
   import("./components/library").then(m => ({ default: m.Model }))
 );
-
 const Crash = React.lazy(() =>
   import("./components/crash").then(m => ({ default: m.Model }))
 );
@@ -51,26 +43,25 @@ const Crash = React.lazy(() =>
 
 function BloomEffect() {
   const { gl, scene, camera, size } = useThree();
-  const composerRef = React.useRef(null);
+  const composer = useRef();
 
-  React.useEffect(() => {
-    const composer = new EffectComposer(gl);
-    composerRef.current = composer;
-    composer.setSize(size.width, size.height);
-    composer.addPass(new RenderPass(scene, camera));
+  useEffect(() => {
+    composer.current = new EffectComposer(gl);
+    composer.current.setSize(size.width, size.height);
+    composer.current.addPass(new RenderPass(scene, camera));
 
-    const bloomPass = new UnrealBloomPass(
+    const bloom = new UnrealBloomPass(
       new THREE.Vector2(size.width, size.height),
       0.5,
       1,
       0.3
     );
-    composer.addPass(bloomPass);
+    composer.current.addPass(bloom);
 
-    return () => composer.dispose();
+    return () => composer.current?.dispose();
   }, [gl, scene, camera, size]);
 
-  useFrame(() => composerRef.current?.render(), 1);
+  useFrame(() => composer.current?.render(), 1);
   return null;
 }
 
@@ -82,13 +73,31 @@ const keyboardMap = [
   { name: "run", keys: ["Shift"] },
 ];
 
-const SceneContent = () => {
-  const [enablePhysicsContent, setEnablePhysicsContent] = useState(false);
+
+function SceneContent({ onReady }) {
+  const { gl, scene, camera } = useThree();
+  const warmedUp = useRef(false);
 
   useEffect(() => {
-    const t = setTimeout(() => setEnablePhysicsContent(true), 300);
-    return () => clearTimeout(t);
-  }, []);
+    let frames = 0;
+
+    const warmup = () => {
+      frames++;
+
+      gl.compile(scene, camera);
+
+      if (frames > 120) { 
+        if (!warmedUp.current) {
+          warmedUp.current = true;
+          onReady();
+        }
+        return;
+      }
+      requestAnimationFrame(warmup);
+    };
+
+    warmup();
+  }, [gl, scene, camera, onReady]);
 
   return (
     <>
@@ -101,61 +110,87 @@ const SceneContent = () => {
 
       <Environment preset="night" />
 
-
       <Suspense fallback={null}>
         <NeonGridFloor />
       </Suspense>
-
 
       <Physics gravity={[0, -9.81, 0]}>
         <Suspense fallback={null}>
           <Map model="models/neon_stage_full2.glb" scale={0.5} position={[0, -1, -6]} />
         </Suspense>
 
-        {enablePhysicsContent && (
-          <Suspense fallback={null}>
-            <CharacterController />
+        <Suspense fallback={null}>
+          <CharacterController />
 
-            <Portal position={[0, -1, -1]} portalColorStart="red" lampColor="#b20024">
-              <TiLogo scale={0.4} position={[0, 0.5, 0]} rotation={[0, -3, 0]} />
-            </Portal>
+          <Portal position={[0, -1, -1]} portalColorStart="red" lampColor="#b20024">
+            <TiLogo scale={0.4} position={[0, 0.5, 0]} rotation={[0, -3, 0]} />
+          </Portal>
 
-            <Portal position={[6, -1, -10]} rotation={[0, 2.3, 0]} portalColorStart="blue" lampColor="#0082b2">
-              <Robot scale={0.5} position={[0, 0.7, 0]} rotation={[0, 2.8, 0]} />
-            </Portal>
+          <Portal position={[6, -1, -10]} rotation={[0, 2.3, 0]} portalColorStart="blue" lampColor="#0082b2">
+            <Robot scale={0.5} position={[0, 0.7, 0]} rotation={[0, 2.8, 0]} />
+          </Portal>
 
-            <Portal position={[-6, -1, -10]} rotation={[0, -2.3, 0]} portalColorStart="green" lampColor="#00b26b">
-              <RetroComputer scale={2.5} position={[0.1, 1, 0]} rotation={[0, 3.2, 0]} />
-            </Portal>
+          <Portal position={[-6, -1, -10]} rotation={[0, -2.3, 0]} portalColorStart="green" lampColor="#00b26b">
+            <RetroComputer scale={2.5} position={[0.1, 1, 0]} rotation={[0, 3.2, 0]} />
+          </Portal>
 
-            <group>
-              <Academic scale={3.5} position={[4, -1, -18]} rotation={[0, -1, 0]} />
-              <Sign scale={2} position={[-4, -1, -18]} rotation={[0, 1, 0]} />
-              <Crash scale={1} position={[-5, -1, -16]} rotation={[0, 1.8, 0]} />
-              <PurplePlanet scale={1} position={[-4, 3.2, -18]} />
-              <Saucer scale={2} position={[0, 1, -22]} />
-              <Library scale={3} position={[6, -1, -4]} rotation={[0, 4.2, 0]} />
-              <Library scale={3} position={[-6, -1, -4]} rotation={[0, -4.2, 0]} />
-            </group>
-          </Suspense>
-        )}
+          <group>
+            <Academic scale={3.5} position={[4, -1, -18]} rotation={[0, -1, 0]} />
+            <Sign scale={2} position={[-4, -1, -18]} rotation={[0, 1, 0]} />
+            <Crash scale={1} position={[-5, -1, -16]} rotation={[0, 1.8, 0]} />
+            <PurplePlanet scale={1} position={[-4, 3.2, -18]} />
+            <Saucer scale={2} position={[0, 1, -22]} />
+            <Library scale={3} position={[6, -1, -4]} rotation={[0, 4.2, 0]} />
+            <Library scale={3} position={[-6, -1, -4]} rotation={[0, -4.2, 0]} />
+          </group>
+        </Suspense>
       </Physics>
 
       <BloomEffect />
     </>
   );
-};
+}
+
 
 export default function Scene() {
+  const [ready, setReady] = useState(false);
+
   return (
     <KeyboardControls map={keyboardMap}>
+      {/* Loader (DOM) */}
+      {!ready && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "black",
+            color: "#ff4fd8",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 10,
+            fontSize: 24,
+            letterSpacing: 2,
+          }}
+        >
+          Setting up Environment...
+        </div>
+      )}
+
       <Canvas
         shadows
         camera={{ position: [3, 3, 3], near: 0.1, fov: 60 }}
         dpr={[1, 2]}
-        style={{ height: "100vh", width: "100vw", position: "absolute" }}
+        style={{
+          height: "100vh",
+          width: "100vw",
+          position: "absolute",
+          opacity: ready ? 1 : 0,
+          pointerEvents: ready ? "auto" : "none",
+          transition: "opacity 0.8s ease",
+        }}
       >
-        <SceneContent />
+        <SceneContent onReady={() => setReady(true)} />
       </Canvas>
     </KeyboardControls>
   );
