@@ -51,3 +51,36 @@ body {
   margin-left: 0.5rem;
 }
 
+.orbit {
+  position: relative;
+  width: 100vw;
+  aspect-ratio: 1;
+  margin: auto;
+}
+
+/* .orbit::before { */
+/*   content: ""; */
+/*   position: absolute; */
+/*   inset: 0; */
+/*   border: 1px solid rgba(255,255,255,0.2); */
+/*   border-radius: 50%; */
+/* } */
+
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-60%, -90%);
+  z-index: 5;
+}
+
+.node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20vw;
+  height: 20vw;
+  transform-origin: 0 0;
+}
+

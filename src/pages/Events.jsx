@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TopNavOverlay } from "../components/TopNavOverlay";
 
 const events = [
@@ -72,15 +72,48 @@ const upcomingEvents = [
     liner: "One liner jo bhi event hai"
   },
 ]
-
+const radius = "30vw"
 function UpcomingEvents() {
-  return <div className="flex flex-col gap-32">
+  return <div className="flex flex-col pb-128">
     <h2 className="section-title font-pirata text-8xl">
       <span>Upcoming Events</span>
     </h2>
-    <img src="/aavegh.png" alt="Aavegh" style={{
-      width: "80vw"
-    }} />
+    <div class="orbit">
+      <div class="center">
+        <img src="/aavegh.png" alt="Aavegh" style={{
+          width: "80vw"
+        }} />
+      </div>
+      {upcomingEvents.map(({ title, liner }, i) => {
+        const angle = (360 / upcomingEvents.length) * i;
+        return <div
+          key={`upcoming-event-${i}`}
+          className="node font-gothic flex flex-col text-[#95B7DA]"
+          style={{
+            transform: `
+              translate(-50%, -50%)
+              rotate(${angle}deg)
+              translate(${radius})
+              rotate(-${angle}deg)
+            `,
+            backgroundImage: "url(/upcoming_aura.svg)",
+            backgroundOrigin: "padding-box",
+            backgroundSize: "cover"
+          }}
+          >
+            <div className="text-5xl" style={{
+            transform: `
+              translate(25%, 300%)
+            `,
+            }}>{title}</div>
+            <div className="text-xl" style={{
+            transform: `
+              translate(25%, 600%)
+            `,
+            }}>{liner}</div>
+        </div>
+      })}
+    </div>
   </div>
 }
 
