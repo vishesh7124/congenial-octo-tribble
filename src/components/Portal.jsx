@@ -2,6 +2,10 @@ import { useRef } from "react";
 import { Color, AdditiveBlending } from "three";
 import { extend, useFrame } from "@react-three/fiber";
 import { shaderMaterial, useGLTF, useTexture, Sparkles } from "@react-three/drei";
+import { DissolveMaterial } from "./DissolveEffect";
+import * as THREE from "three";
+import { Model } from "./robot";
+// import { Model } from "./building";
 
 const vertexShader = `
   varying vec2 vUv;
@@ -95,19 +99,29 @@ const PortalMaterial = shaderMaterial(
 
 extend({ PortalMaterial });
 
-export function Portal(props) {
+export function Portal({
+  portalColorStart = "hotpink",
+  portalColorEnd = "white",
+  lampColor = "#f0bf94",
+  children,
+  ...props
+}) {
   const portalMaterial = useRef();
   const scale = Array.from({ length: 50 }, () => 0.5 + Math.random() * 4);
   
   // Load textures and models with correct paths
   const bakedTexture = useTexture("/models/baked-02.jpeg");
   const { nodes } = useGLTF("/models/portal-2.glb");
+  
 
   useFrame((state, delta) => {
     if (portalMaterial.current) {
       portalMaterial.current.uTime += delta;
     }
   });
+
+  const boxMaterial = new THREE.MeshStandardMaterial({ color: "white" });
+
 
   return (
     <group {...props} dispose={null}>
@@ -126,12 +140,12 @@ export function Portal(props) {
         position={[0, 0.78, 1.6]} 
         rotation={[-Math.PI / 2, 0, 0]}
       >
-        <portalMaterial 
-          ref={portalMaterial} 
-          blending={AdditiveBlending} 
-          uColorStart="hotpink" 
-          uColorEnd="white" 
-        />
+<portalMaterial 
+  ref={portalMaterial} 
+  blending={AdditiveBlending} 
+  uColorStart={portalColorStart}
+  uColorEnd={portalColorEnd}
+/>
       </mesh>
       
       {/* Lamp lights */}
@@ -140,14 +154,14 @@ export function Portal(props) {
         position={[0.89, 1.07, -0.14]} 
         scale={[0.07, 0.11, 0.07]} 
       >
-        <meshBasicMaterial color="#f0bf94" />
+<meshBasicMaterial color={lampColor} />
       </mesh>
       <mesh 
         geometry={nodes.lampLightR.geometry} 
         position={[-0.98, 1.07, -0.14]} 
         scale={[-0.07, 0.11, 0.07]} 
       >
-        <meshBasicMaterial color="#f0bf94" />
+<meshBasicMaterial color={lampColor} />
       </mesh>
       
       {/* Baked texture mesh */}
@@ -158,6 +172,12 @@ export function Portal(props) {
       >
         <meshBasicMaterial map={bakedTexture} map-flipY={false} />
       </mesh>
+
+
+          {children}
+
+
     </group>
   );
 }
+

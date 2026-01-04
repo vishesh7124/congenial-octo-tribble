@@ -12,6 +12,11 @@ export const Map = ({ model, ...props }) => {
         child.castShadow = true;
         child.receiveShadow = true;
       }
+
+        if (child.isMesh && child.material) {
+    child.material.emissiveIntensity = 0.7;
+    child.material.toneMapped = true;
+  }
     });
   }, [scene]);
 
