@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;600;700&family=Uncial+Antiqua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
 @import "tailwindcss";
 
 #root {
@@ -13,5 +14,11 @@ body {
 .font-gothic {
   font-family: 'MedievalSharp', 'Cinzel', 'Uncial Antiqua', serif;
   font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.font-pirata {
+  font-family: 'Pirata One', system-ui;
+  font-weight: 400;
   letter-spacing: 0.05em;
 }
