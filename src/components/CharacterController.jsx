@@ -177,10 +177,10 @@ rotationTarget.current += turn * ROTATION_SPEED;
 const angle = rotationTarget.current;
 
 container.current.position.x +=
-  Math.sin(angle) * forward * WALK_SPEED * delta;
+  Math.sin(angle) * forward * WALK_SPEED * delta*2;
 
 container.current.position.z +=
-  Math.cos(angle) * forward * WALK_SPEED * delta;
+  Math.cos(angle) * forward * WALK_SPEED * delta*2;
 
     // Animation
     setAnimation(speed === RUN_SPEED ? "run" : "moonwalk");

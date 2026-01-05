@@ -55,7 +55,7 @@ function BloomEffect() {
 
     const bloom = new UnrealBloomPass(
       new THREE.Vector2(size.width, size.height),
-      0.5,
+      0.2,
       1,
       0.3
     );
@@ -172,7 +172,7 @@ function SceneContent({ onReady }) {
         </Suspense>
       {/* </Physics> */}
 
-      {/* <BloomEffect /> */}
+      <BloomEffect />
     </>
   );
 }
@@ -206,7 +206,7 @@ export default function Scene() {
       <Canvas
         shadows
         camera={{ position: [3, 3, 3], near: 0.1, fov: 60 }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         style={{
           height: "100vh",
           width: "100vw",
