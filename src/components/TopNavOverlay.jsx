@@ -29,7 +29,7 @@ export function TopNavOverlay() {
         </Link>
 
         <Link 
-          to="/schedule"
+          to="/team"
           className={location.pathname === "/team" ? activeLinkClass : linkClass}
           style={{
             textShadow: '0 0 10px rgba(236, 72, 153, 0.8), 0 0 20px rgba(236, 72, 153, 0.5)',
