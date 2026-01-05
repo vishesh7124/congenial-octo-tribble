@@ -53,25 +53,14 @@ body {
 
 .orbit {
   position: relative;
-  width: 100vw;
+  width: 40vw;
   aspect-ratio: 1;
   margin: auto;
 }
 
-/* .orbit::before { */
-/*   content: ""; */
-/*   position: absolute; */
-/*   inset: 0; */
-/*   border: 1px solid rgba(255,255,255,0.2); */
-/*   border-radius: 50%; */
-/* } */
-
-
 .center {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-60%, -90%);
+  transform: translate(0%, 40%);
   z-index: 5;
 }
 
@@ -79,8 +68,6 @@ body {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 20vw;
-  height: 20vw;
   transform-origin: 0 0;
 }
 

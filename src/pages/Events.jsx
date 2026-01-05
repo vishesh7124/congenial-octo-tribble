@@ -1,5 +1,20 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { TopNavOverlay } from "../components/TopNavOverlay";
+
+function Aura({ aura_file_name, size, children }) {
+  return <div
+    className="flex justify-center items-center"
+    style={{
+      width: size,
+      height: size,
+      backgroundImage: `url(/${aura_file_name}.svg)`,
+      backgroundOrigin: "padding-box",
+      backgroundSize: "cover"
+    }}
+  >
+    {children}
+  </div>
+}
 
 const events = [
   {
@@ -30,7 +45,7 @@ function rotate(new_value, total) {
 }
 
 function Event({ event }) {
-  return <div className="flex flex-col w-[60vw] gap-4 text-[#95B7DA] pl-32 pr-32">
+  return <div className="flex flex-col w-[30vw] gap-4 text-[#95B7DA] pl-32 pr-32">
     <h1 className="text-8xl font-pirata">
       {event.title}
     </h1>
@@ -72,9 +87,12 @@ const upcomingEvents = [
     liner: "One liner jo bhi event hai"
   },
 ]
-const radius = "30vw"
+const radius = "20vw"
 function UpcomingEvents() {
-  return <div className="flex flex-col pb-128">
+  return <div className="flex flex-col pb-128" style={{
+    backgroundImage: "url(/upcoming_events_bg.png)",
+    backgroundSize: "cover"
+  }}>
     <h2 className="section-title font-pirata text-8xl">
       <span>Upcoming Events</span>
     </h2>
@@ -85,10 +103,10 @@ function UpcomingEvents() {
         }} />
       </div>
       {upcomingEvents.map(({ title, liner }, i) => {
-        const angle = (360 / upcomingEvents.length) * i;
+        const angle = (360 / upcomingEvents.length) * i + 40;
         return <div
           key={`upcoming-event-${i}`}
-          className="node font-gothic flex flex-col text-[#95B7DA]"
+          className="node font-gothic text-[#95B7DA]"
           style={{
             transform: `
               translate(-50%, -50%)
@@ -96,21 +114,14 @@ function UpcomingEvents() {
               translate(${radius})
               rotate(-${angle}deg)
             `,
-            backgroundImage: "url(/upcoming_aura.svg)",
-            backgroundOrigin: "padding-box",
-            backgroundSize: "cover"
           }}
-          >
-            <div className="text-5xl" style={{
-            transform: `
-              translate(25%, 300%)
-            `,
-            }}>{title}</div>
-            <div className="text-xl" style={{
-            transform: `
-              translate(25%, 600%)
-            `,
-            }}>{liner}</div>
+        >
+          <Aura aura_file_name={"upcoming_aura"} size="15vw">
+            <div className="flex flex-col">
+              <div className="text-6xl">{title}</div>
+              <div className="text-2xl">{liner}</div>
+            </div>
+          </Aura>
         </div>
       })}
     </div>
@@ -122,21 +133,21 @@ export function Events() {
   return (
     <div className="min-h-screen text-pink-400">
       <TopNavOverlay />
-      <div className="pt-32 pb-48 px-8 flex justify-between pt-[30vh]"
-    style={{
-      backgroundImage: "url(/aura.svg)",
-      backgroundOrigin: "padding-box",
-      backgroundSize: "cover"
-    }}
-    >
+      <div className="pt-32 pb-48 px-8 flex justify-between pt-[30vh]">
         <button
           onClick={() => setCurrentEvent(rotate(currentEvent - 1, events.length))}
-          className="text-8xl font-gothic text-[#DE87B4] cursor-pointer"
+          className="font-gothic text-[#DE87B4] cursor-pointer ml-32" style={{
+            fontSize: "30rem"
+          }}
         >{"<"}</button>
-        <Event event={events[currentEvent]} />
+        <Aura aura_file_name="aura" size="50vw">
+          <Event event={events[currentEvent]} />
+        </Aura>
         <button
           onClick={() => setCurrentEvent(rotate(currentEvent + 1, events.length))}
-          className="text-8xl font-gothic text-[#DE87B4] cursor-pointer"
+          className="font-gothic text-[#DE87B4] cursor-pointer mr-32" style={{
+            fontSize: "30rem"
+          }}
         >{">"}</button>
       </div>
       <UpcomingEvents />
