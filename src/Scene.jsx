@@ -132,19 +132,19 @@ function SceneContent({ onReady }) {
       <directionalLight position={[-10, 5, -10]} intensity={1.2} color="#00ffff" />
       <pointLight position={[0, -0.5, 0]} intensity={1.5} distance={20} color="#ff00ff" />
 
-      <Environment preset="night" />
+      {/* <Environment preset="night" /> */}
 
       <Suspense fallback={null}>
         <NeonGridFloor />
       </Suspense>
 
-      <Physics gravity={[0, -9.81, 0]}>
+      {/* <Physics gravity={[0, 0, 0]}> */}
         <Suspense fallback={null}>
           <Map model="models/neon_stage_full2.glb" scale={0.5} position={[0, -1, -6]} />
         </Suspense>
 
         <Suspense fallback={null}>
-          <CharacterController />
+          {/* <CharacterController /> */}
 
           <Portal position={[0, -1, -1]} portalColorStart="red" lampColor="#b20024">
             <TiLogo scale={0.4} position={[0, 0.5, 0]} rotation={[0, -3, 0]} />
@@ -168,7 +168,7 @@ function SceneContent({ onReady }) {
             <Library scale={3} position={[-6, -1, -4]} rotation={[0, -4.2, 0]} />
           </group>
         </Suspense>
-      </Physics>
+      {/* </Physics> */}
 
       {/* <BloomEffect /> */}
     </>
