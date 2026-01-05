@@ -45,13 +45,13 @@ function rotate(new_value, total) {
 }
 
 function Event({ event }) {
-  return <div className="flex flex-col w-[80vw] items-center text-center text-[#95B7DA] pl-32 pr-32">
+  return <div className="flex flex-col w-[80vw] text-[#95B7DA] pl-32 pr-32">
     <h1 className="font-pirata" style={{
       fontSize: "8vw",
     }}>
       {event.title}
     </h1>
-    <h2 className="font-gothic mb-8" style={{
+    <h2 className="font-gothic" style={{
       fontSize: "2vw",
     }}>
       {event.below_title}
@@ -59,16 +59,19 @@ function Event({ event }) {
     <div className="flex">
       <button
         onClick={() => alert('todo')}
-        className="font-gothic p-4 rounded-3xl cursor-pointer"
+        className="font-gothic p-2 pl-4 pr-4 rounded-3xl cursor-pointer"
         style={{
-          fontSize: "2vw",
+          fontSize: "1vw",
           border: "3px solid #65C5D4",
         }}
-      >{"MORE INFO >"}</button>
+      >
+        <span>{"MORE INFO "}</span>
+        <span className="text-[#DE87B4]">{">"}</span>
+      </button>
       <div></div>
     </div>
-    <h2 className="font-gothic mt-8" style={{
-      fontSize: "5vw"
+    <h2 className="font-gothic" style={{
+      fontSize: "3vw"
     }}>Description</h2>
     <h2 className="font-gothic w-full" style={{
       fontSize: "1vw"
