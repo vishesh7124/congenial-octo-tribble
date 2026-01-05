@@ -144,7 +144,7 @@ function SceneContent({ onReady }) {
         </Suspense>
 
         <Suspense fallback={null}>
-          {/* <CharacterController /> */}
+          <CharacterController />
 
           <Portal position={[0, -1, -1]} portalColorStart="red" lampColor="#b20024">
             <TiLogo scale={0.4} position={[0, 0.5, 0]} rotation={[0, -3, 0]} />
