@@ -2,7 +2,9 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Environment, KeyboardControls } from "@react-three/drei";
 import * as THREE from "three";
-import { Physics } from "@react-three/rapier";
+// import { Physics } from "@react-three/rapier";
+// import { Physics } from "@react-three/cannon";
+
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
@@ -138,13 +140,13 @@ function SceneContent({ onReady }) {
         <NeonGridFloor />
       </Suspense>
 
-      {/* <Physics gravity={[0, 0, 0]}> */}
+      {/* <Physics gravity={[0, -9.81, 0]}> */}
         <Suspense fallback={null}>
           <Map model="models/neon_stage_full2.glb" scale={0.5} position={[0, -1, -6]} />
         </Suspense>
 
         <Suspense fallback={null}>
-          {/* <CharacterController /> */}
+          <CharacterController />
 
           <Portal position={[0, -1, -1]} portalColorStart="red" lampColor="#b20024">
             <TiLogo scale={0.4} position={[0, 0.5, 0]} rotation={[0, -3, 0]} />

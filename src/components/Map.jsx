@@ -11,6 +11,7 @@ export const Map = ({ model, ...props }) => {
       if (child.isMesh) {
         child.castShadow = true;
         child.receiveShadow = true;
+        child.userData.isGround = true;
       }
 
         if (child.isMesh && child.material) {
