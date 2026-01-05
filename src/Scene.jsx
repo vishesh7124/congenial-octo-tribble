@@ -162,7 +162,7 @@ function SceneContent({ onReady }) {
         </Suspense>
       </Physics>
 
-      <BloomEffect />
+      {/* <BloomEffect /> */}
     </>
   );
 }
