@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Cinzel:wght@400;600;700&family=Uncial+Antiqua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
 @import "tailwindcss";
 
 #root {
@@ -15,3 +16,58 @@ body {
   font-weight: 600;
   letter-spacing: 0.05em;
 }
+
+.font-pirata {
+  font-family: 'Pirata One', system-ui;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #b9d4f0; /* text color */
+}
+
+.section-title::before,
+.section-title::after {
+  content: "";
+  flex: 1;
+  height: 10px;
+  background: linear-gradient(
+    to right,
+    #de87b4,
+    #de87b4
+  );
+  border-radius: 3px;
+}
+
+.section-title::before {
+  margin-right: 0.5rem;
+}
+
+.section-title::after {
+  margin-left: 0.5rem;
+}
+
+.orbit {
+  position: relative;
+  width: 40vw;
+  aspect-ratio: 1;
+  margin: auto;
+}
+
+.center {
+  position: absolute;
+  transform: translate(0%, 40%);
+  z-index: 5;
+}
+
+.node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+}
+
