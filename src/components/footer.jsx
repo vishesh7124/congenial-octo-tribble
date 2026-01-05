@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="relative mt-32 border-t border-pink-500/30 bg-black">
 
       {/* Glow Line */}
-      <div className="absolute inset-x-0 top-0 h-[2px] bg-pink-500/40 shadow-[0_0_20px_rgba(236,72,153,0.8)]"></div>
+      <div className="absolute inset-x-0 top-0 h-0.5 bg-pink-500/40 shadow-[0_0_20px_rgba(236,72,153,0.8)]"></div>
 
       <div className="max-w-7xl mx-auto px-8 py-12 text-center">
 

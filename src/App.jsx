@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Schedule } from "./pages/Schedule";
 import { Events } from "./pages/Events";
-import { Competitions } from "./pages/Competitions";
+import { Competitions } from "./pages/AboutUs";
 import { Sponsors } from "./pages/Sponsors";
 import { ContactUs } from "./pages/ContactUs";
 import { Team } from "./pages/TeamPage";

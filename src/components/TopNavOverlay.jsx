@@ -66,7 +66,7 @@ export function TopNavOverlay() {
             textShadow: '0 0 10px rgba(236, 72, 153, 0.8), 0 0 20px rgba(236, 72, 153, 0.5)',
           }}
         >
-          Competitions
+          AboutUs
         </Link>
 
         {/* Sponsors */}
