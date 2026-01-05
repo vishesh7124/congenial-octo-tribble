@@ -45,25 +45,34 @@ function rotate(new_value, total) {
 }
 
 function Event({ event }) {
-  return <div className="flex flex-col w-[30vw] gap-4 text-[#95B7DA] pl-32 pr-32">
-    <h1 className="text-8xl font-pirata">
+  return <div className="flex flex-col w-[80vw] items-center text-center text-[#95B7DA] pl-32 pr-32">
+    <h1 className="font-pirata" style={{
+      fontSize: "8vw",
+    }}>
       {event.title}
     </h1>
-    <h2 className="text-5xl font-gothic mb-8">
+    <h2 className="font-gothic mb-8" style={{
+      fontSize: "2vw",
+    }}>
       {event.below_title}
     </h2>
     <div className="flex">
       <button
         onClick={() => alert('todo')}
-        className="font-gothic text-2xl p-4 rounded-3xl cursor-pointer"
+        className="font-gothic p-4 rounded-3xl cursor-pointer"
         style={{
+          fontSize: "2vw",
           border: "3px solid #65C5D4",
         }}
       >{"MORE INFO >"}</button>
       <div></div>
     </div>
-    <h2 className="text-5xl font-gothic mt-8">Description</h2>
-    <h2 className="text-4xl font-gothic">
+    <h2 className="font-gothic mt-8" style={{
+      fontSize: "5vw"
+    }}>Description</h2>
+    <h2 className="font-gothic w-full" style={{
+      fontSize: "1vw"
+    }}>
       {event.description}
     </h2>
   </div>
@@ -93,7 +102,7 @@ function UpcomingEvents() {
     backgroundImage: "url(/upcoming_events_bg.png)",
     backgroundSize: "cover"
   }}>
-    <h2 className="section-title font-pirata text-8xl">
+    <h2 className="section-title font-pirata text-8xl mb-64">
       <span>Upcoming Events</span>
     </h2>
     <div class="orbit">
@@ -133,11 +142,12 @@ export function Events() {
   return (
     <div className="min-h-screen text-pink-400">
       <TopNavOverlay />
-      <div className="pt-32 pb-48 px-8 flex justify-between pt-[30vh]">
+      <div className="pb-48 flex justify-between pt-[30vh]">
+        <div></div>
         <button
           onClick={() => setCurrentEvent(rotate(currentEvent - 1, events.length))}
-          className="font-gothic text-[#DE87B4] cursor-pointer ml-32" style={{
-            fontSize: "30rem"
+          className="font-gothic text-[#DE87B4] cursor-pointer" style={{
+            fontSize: "10vw"
           }}
         >{"<"}</button>
         <Aura aura_file_name="aura" size="50vw">
@@ -145,10 +155,11 @@ export function Events() {
         </Aura>
         <button
           onClick={() => setCurrentEvent(rotate(currentEvent + 1, events.length))}
-          className="font-gothic text-[#DE87B4] cursor-pointer mr-32" style={{
-            fontSize: "30rem"
+          className="font-gothic text-[#DE87B4] cursor-pointer" style={{
+            fontSize: "10vw"
           }}
         >{">"}</button>
+        <div></div>
       </div>
       <UpcomingEvents />
     </div>
