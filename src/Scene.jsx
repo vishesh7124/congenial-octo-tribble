@@ -15,6 +15,7 @@ import { Map } from "./components/Map";
 import { CharacterController } from "./components/CharacterController";
 import { Portal } from "./components/Portal";
 
+
 const RetroComputer = React.lazy(() =>
   import("./components/comp").then(m => ({ default: m.Model }))
 );
@@ -24,8 +25,8 @@ const TiLogo = React.lazy(() =>
 const Robot = React.lazy(() =>
   import("./components/robo").then(m => ({ default: m.Model }))
 );
-const Academic = React.lazy(() =>
-  import("./components/building").then(m => ({ default: m.Model }))
+const AdminBlock = React.lazy(() =>
+  import("./components/AdminBlock").then(m => ({ default: m.Model }))
 );
 const Sign = React.lazy(() =>
   import("./components/sign").then(m => ({ default: m.Model }))
@@ -42,6 +43,7 @@ const Library = React.lazy(() =>
 const Crash = React.lazy(() =>
   import("./components/crash").then(m => ({ default: m.Model }))
 );
+
 
 
 function BloomEffect() {
@@ -161,13 +163,19 @@ function SceneContent({ onReady }) {
           </Portal>
 
           <group>
-            <Academic scale={3.5} position={[4, -1, -18]} rotation={[0, -1, 0]} />
+            {/* <Academic scale={3.5} position={[4, -1, -18]} rotation={[0, -1, 0]} /> */}
+            <AdminBlock scale={3.5} position={[4, -1, -19]} rotation={[0, -1, 0]} />
             <Sign scale={2} position={[-4, -1, -18]} rotation={[0, 1, 0]} />
             <Crash scale={1} position={[-5, -1, -16]} rotation={[0, 1.8, 0]} />
             <PurplePlanet scale={1} position={[-4, 3.2, -18]} />
             <Saucer scale={2} position={[0, 1, -22]} />
+            {/* <Library scale={3} position={[6, -1, -4]} rotation={[0, 4.2, 0]} />
+            <Library scale={3} position={[-6, -1, -4]} rotation={[0, -4.2, 0]} /> */}
             <Library scale={3} position={[6, -1, -4]} rotation={[0, 4.2, 0]} />
             <Library scale={3} position={[-6, -1, -4]} rotation={[0, -4.2, 0]} />
+
+            
+
           </group>
         </Suspense>
       {/* </Physics> */}
