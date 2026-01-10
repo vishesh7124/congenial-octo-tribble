@@ -173,9 +173,6 @@ function SceneContent({ onReady }) {
             <Library scale={3} position={[-6, -1, -4]} rotation={[0, -4.2, 0]} /> */}
             <Library scale={3} position={[6, -1, -4]} rotation={[0, 4.2, 0]} />
             <Library scale={3} position={[-6, -1, -4]} rotation={[0, -4.2, 0]} />
-
-            
-
           </group>
         </Suspense>
       {/* </Physics> */}

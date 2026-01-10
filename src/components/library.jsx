@@ -4,15 +4,15 @@ Command: npx gltfjsx@6.5.3 ./public/models/library.glb -o ./src/components/libra
 */
 
 import React from 'react'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, Clone } from '@react-three/drei'
 
 export function Model(props) {
-  const { nodes, materials } = useGLTF('/models/library.glb')
+  const { scene } = useGLTF('/models/librarybuilding.glb')
   return (
-    <group {...props} dispose={null}>
-      <mesh geometry={nodes.Plane.geometry} material={materials['Material.001']} />
+    <group {...props}>
+      <Clone object={scene} />
     </group>
   )
 }
 
-useGLTF.preload('/models/library.glb')
+useGLTF.preload('/models/librarybuilding.glb')

@@ -4,20 +4,16 @@ Command: npx gltfjsx@6.5.3 ./public/models/building.glb -o ./src/components/buil
 */
 
 import React from 'react'
-import { useGLTF } from '@react-three/drei'
+import { useGLTF, Clone } from '@react-three/drei'
 import { DissolveMaterial } from './DissolveEffect'
 
 export function Model(props) {
-  const { nodes, materials } = useGLTF('/models/building.glb')
+  const { scene } = useGLTF('/models/AdminBlock.glb')
   return (
     <group {...props} dispose={null}>
-      <mesh geometry={nodes.model.geometry} material={materials.model} >
-
-        {/* <DissolveMaterial baseMaterial={materials.model} visible color="#0082b2"  /> */}
-
-      </mesh>
+    <Clone object={scene} />
     </group>
   )
 }
 
-useGLTF.preload('/models/building.glb')
+useGLTF.preload('/models/AdminBlock.glb')
